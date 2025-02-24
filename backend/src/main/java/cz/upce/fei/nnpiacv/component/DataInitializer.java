@@ -1,5 +1,6 @@
 package cz.upce.fei.nnpiacv.component;
 
+import cz.upce.fei.nnpiacv.domain.Task;
 import cz.upce.fei.nnpiacv.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
