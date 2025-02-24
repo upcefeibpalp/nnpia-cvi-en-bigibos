@@ -1,39 +1,32 @@
 package cz.upce.fei.nnpiacv.service;
 
 import cz.upce.fei.nnpiacv.domain.User;
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cz.upce.fei.nnpiacv.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
+@Slf4j
+@AllArgsConstructor
 public class UserService {
 
-    private Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final UserRepository userRepository;
 
-    private Map<Long, User> users = new HashMap<Long, User>();
-
-    @PostConstruct
-    public void init() {
-        users.put(0L, new User(0L, "John", "Doe"));
-        users.put(1L, new User(1L, "Martin", "Seidl"));
-    }
-
-
-    public List<User> getUsers() {
-        return new ArrayList<User>(users.values());
+    public Collection<User> findUsers() {
+        return userRepository.findAll();
     }
 
     public User findUser(long id) {
-        User user = users.get(id);
+        Optional<User> user = userRepository.findById(id);
+        log.debug("Ziskan uzivatel: " + user.get());
 
-        logger.info("User created: " + user);
+        return user.get();
+    }
 
-        return user;
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
