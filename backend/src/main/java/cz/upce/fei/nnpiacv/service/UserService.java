@@ -2,6 +2,7 @@ package cz.upce.fei.nnpiacv.service;
 
 import cz.upce.fei.nnpiacv.domain.User;
 import cz.upce.fei.nnpiacv.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,22 @@ public class UserService {
     }
 
     @Transactional
+    public User updateUser(Long id, User user) {
+        User existingUser = userRepository.findById(id).get();
+
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+
+        return userRepository.save(existingUser);
+    }
+
+    @Transactional
     public User deleteUser(Long id) {
+        User user = findUser(id);
 
-        userRepository.deleteById(id);
+        userRepository.deleteById(user.getId());
 
-        return null;
+        return user;
     }
 
     public Collection<User> findUsers() {

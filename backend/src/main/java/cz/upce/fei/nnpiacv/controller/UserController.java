@@ -3,6 +3,7 @@ package cz.upce.fei.nnpiacv.controller;
 import cz.upce.fei.nnpiacv.domain.User;
 import cz.upce.fei.nnpiacv.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -12,6 +13,11 @@ import java.util.*;
 public class UserController {
 
     private final UserService userService;
+
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
 
     @PostMapping("/users")
     public User addUser(@RequestBody User user) {
