@@ -27,5 +27,5 @@ public class EventRespondDTO {
     private List<PhaseRespondDTO> phases;
 
     @JsonIgnoreProperties("event")
-    private List<Roster> rosters;
+    private List<RosterRespondDTO> rosters;
 }

@@ -32,5 +32,5 @@ public class RacerRespondDTO {
     private CarRespondDTO car;
 
     @JsonIgnoreProperties("racer")
-    private List<Roster> rosters;
+    private List<RosterRespondDTO> rosters;
 }
